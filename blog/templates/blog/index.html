@@ -1,0 +1,26 @@
+<!-- Blog templates-->
+
+{% extends "base.html" %}
+
+{% block page_title %}
+    <h2>Blog Posts</h2>
+{% endblock page_title %}
+
+<!-- A for loop to iterate over the posts. For each post, display the title and snippet of the body-->
+
+{% block page_content %}
+    {% block posts %}
+        {% for post in posts %}
+            <h3><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h3> <!-- The pk maps the post with a unique integer-->
+            <small>
+                {{ post.created_on.date }} | Categories:
+                {% for category in post.categories.all %}
+                    <a href="{% url 'blog_category' category.name %}">
+                        {{ category.name }}
+                    </a>
+                {% endfor %}
+            </small>
+            <p>{{ post.body | slice:":400" }}...</p> <!-- Slice to cut off the post's body at 400 characters so that it will be more readable-->
+        {% endfor %}
+    {% endblock posts %}
+{% endblock page_content %}
