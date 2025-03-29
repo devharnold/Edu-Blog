@@ -1,44 +1,94 @@
 # Edu-Blog
-### Blog Web App System
 
-Welcome aboard to our web application system version 1.0
-We hereby provide docs and resources on how to maneuver through the whole system
-From Signing up for the platform to signing in to reading and updating your blogs/content, we've made it easy for you to interact with our friendly user interface.
+## Blog Web App System
 
-Our platform is built on Django
+Welcome aboard to our web application system, version 1.0! We provide documentation and resources to help you navigate the entire system.
 
-Since its still in testing mode, if you want to check it out then we will provide instructions on how to do so.
+From signing up on the platform to signing in, reading, and updating your blogs or content, we've made it easy for you to interact with our user-friendly interface.
 
----------------------------------------------------------------------------------------------------------------------
+Our platform is built on **Django**.
 
-## Cloning the repository
-## via HTTPS: 
-`https://github.com/devharnold/Edu-Blog.git`
+Since it is still in testing mode, we will provide instructions on how to check it out.
 
-## via SSH: 
-`git@github.com:devharnold/Edu-Blog.git`
+---
 
-## via github cli: 
-`gh repo clone devharnold/Edu-Blog`
+## Cloning the Repository
 
-## Downloading dependencies on your project directory
-First you need to initialize a python virtual environment:
-**On windows CMD or powershell:**
-Navigate to your project directory: `cd path\to\your\project`
-Create a virtual environment: `python -m venv venv`
-Activate the virtual environment:
-Comand Prompt (CMD): `venv\Scripts\activate`
-Powershell: `venv\Scripts\Activate.ps1`
-*If you get an execution policy error, run: Set-ExecutionPolicy Unrestricted -Scope Process before activating.*
+### via HTTPS:
+```sh
+https://github.com/devharnold/Edu-Blog.git
+```
 
-**On Linux Terminal:**
-Navigate to your project directory: `cd /path/to/your/project`
-Create a virtual environment: `python3 -m venv venv` *Ensure you have `python3` installed*
-Activate the virtual environment: `source venv/bin/activate`
-To deactivate on both Operating Systems, you just `deactivate`
+### via SSH:
+```sh
+git@github.com:devharnold/Edu-Blog.git
+```
 
-**Installing Django:**
-`pip install Django`
+### via GitHub CLI:
+```sh
+gh repo clone devharnold/Edu-Blog
+```
 
-**Running the server:**
-`python3 manage.py runserver`
+---
+
+## Downloading Dependencies in Your Project Directory
+
+### Initializing a Python Virtual Environment
+
+#### **On Windows (CMD or PowerShell):**
+1. Navigate to your project directory:
+   ```sh
+   cd path\to\your\project
+   ```
+2. Create a virtual environment:
+   ```sh
+   python -m venv venv
+   ```
+3. Activate the virtual environment:
+   - **Command Prompt (CMD):**
+     ```sh
+     venv\Scripts\activate
+     ```
+   - **PowerShell:**
+     ```sh
+     venv\Scripts\Activate.ps1
+     ```
+     *If you get an execution policy error, run:*
+     ```sh
+     Set-ExecutionPolicy Unrestricted -Scope Process
+     ```
+     *before activating.*
+
+#### **On Linux (Terminal):**
+1. Navigate to your project directory:
+   ```sh
+   cd /path/to/your/project
+   ```
+2. Create a virtual environment (*Ensure you have `python3` installed*):
+   ```sh
+   python3 -m venv venv
+   ```
+3. Activate the virtual environment:
+   ```sh
+   source venv/bin/activate
+   ```
+
+To deactivate the virtual environment on both operating systems, run:
+```sh
+deactivate
+```
+
+---
+
+## Installing Django
+```sh
+pip install Django
+```
+
+---
+
+## Running the Server
+```sh
+python3 manage.py runserver
+```
+
