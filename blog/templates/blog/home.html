@@ -23,7 +23,6 @@
     <div>
         {% if user.is_authenticated %}
             <a href="#" onclick="openModal()">➕ Add Blog</a>
-            <a href="#">⚙️ Settings</a>
             <a href="{% url 'logout' %}">🚪 Logout</a>
         {% else %}
             <a href="{% url 'login' %}">🔑 Login</a>
@@ -60,7 +59,6 @@
         <p>{{ post.body|truncatewords:20 }}</p>
     </div>
     {% endfor %}
-</div>
 
 <script>
     function openModal() { document.getElementById("blogModal").style.display = "block"; }

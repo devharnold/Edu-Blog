@@ -20,7 +20,7 @@
   </form>
 {% endblock %} -->
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,6 +39,132 @@
     <p>{{ post.body }}</p>
     <a href="{% url 'home' %}">⬅ Back to Home</a>
 </div>
+
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - Edu-Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f5f5; text-align: center; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+        .btn { background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
+        .post { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        .nav { display: flex; justify-content: space-between; padding: 10px; background: #333; color: white; }
+        .nav a { color: white; text-decoration: none; margin-right: 10px; }
+        .category { background: #eee; padding: 5px; border-radius: 5px; display: inline-block; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <span>Edu-Blog</span>
+    <div>
+        {% if user.is_authenticated %}
+            <a href="#" onclick="openModal()">➕ Add Blog</a>
+            <a href="#">⚙️ Settings</a>
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">🔑 Login</a>
+        {% endif %}
+    </div>
+</div> -->
+
+<!-- <div class="container"> -->
+    <!-- Blog Detail -->
+    <!-- <h1>{{ post.title }}</h1>
+    <p>By {{ post.author }} on {{ post.created_on|date:"F j, Y" }}</p>
+    <p>Categories: 
+        {% for category in post.categories.all %}
+            <a href="{% url 'category_posts' category.name %}" class="category">{{ category.name }}</a>
+        {% endfor %}
+    </p>
+    <p>{{ post.body }}</p>
+</div>
+
+<script>
+    function openModal() { document.getElementById("blogModal").style.display = "block"; }
+    function closeModal() { document.getElementById("blogModal").style.display = "none"; }
+</script>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - Edu-Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f5f5; text-align: center; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+        .btn { background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
+        .post { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        .nav { display: flex; justify-content: space-between; padding: 10px; background: #333; color: white; }
+        .nav a { color: white; text-decoration: none; margin-right: 10px; }
+        .category { background: #eee; padding: 5px; border-radius: 5px; display: inline-block; margin-right: 5px; }
+        .comment { padding: 10px; border-top: 1px solid #ddd; text-align: left; }
+        .comment p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <span>Edu-Blog</span>
+    <div>
+        {% if user.is_authenticated %}
+            <a href="#" onclick="openModal()">➕ Add Blog</a>
+            <a href="#">⚙️ Settings</a>
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">🔑 Login</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    <!-- Blog Detail -->
+    <h1>{{ post.title }}</h1>
+    <p>By {{ post.author }} on {{ post.created_on|date:"F j, Y" }}</p>
+    <p>Categories: 
+        {% for category in post.categories.all %}
+            <a href="{% url 'category_posts' category.name %}" class="category">{{ category.name }}</a>
+        {% endfor %}
+    </p>
+    <p>{{ post.body }}</p>
+
+    <!-- Comments Section -->
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <div class="comment">
+            <p><strong>{{ comment.author }}</strong> said:</p>
+            <p>{{ comment.body }}</p>
+            <p><small>Posted on {{ comment.created_on|date:"F j, Y" }}</small></p>
+        </div>
+    {% empty %}
+        <p>No comments yet. Be the first to comment!</p>
+    {% endfor %}
+
+    <!-- Comment Form -->
+    <h3>Leave a Comment</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
+</div>
+
+<script>
+    function openModal() { document.getElementById("blogModal").style.display = "block"; }
+    function closeModal() { document.getElementById("blogModal").style.display = "none"; }
+</script>
 
 </body>
 </html>
