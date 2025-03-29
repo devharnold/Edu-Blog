@@ -3,12 +3,28 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from .forms import RegisterForm, PostForm
+from .forms import RegisterForm, PostForm, BlogForm
 from blog.models import Post, Comment, Category
 from django.http import HttpResponseRedirect
 from blog.forms import CommentForm
 
 # Create your views here.
+
+def home(request):
+    posts = Post.objects.all().order_by("-created_on")  # Get all posts, newest first
+    form = BlogForm()  # Load empty form for modal
+    return render(request, "blog/home.html", {"posts": posts, "form": form})
+
+def create_blog(request):
+    if request.method == "POST":
+        form = BlogForm(request.POST)
+        if form.is_valid():
+            blog = form.save(commit=False)
+            blog.author = request.user  # Assign logged-in user
+            blog.save()
+            return redirect("home")
+    return redirect("home")  # Redirect if not POST
+
 def register(request):  
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -75,8 +91,8 @@ def blog_category(request, category):
     return render(request, "blog/category.html", context)
 
 @login_required
-def blog_detail(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+def blog_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
     
     if request.method == "POST":
         form = CommentForm(request.POST)
@@ -87,11 +103,16 @@ def blog_detail(request, post_id):
             comment.post = post  # Associate the comment with the current post
             comment.save()  # Save the comment
             
-            return redirect('blog:blog_detail', post_id=post.id)
+            return redirect('blog:blog_detail', pk=pk)
     else:
         form = CommentForm()
 
     return render(request, 'blog/blog_detail.html', {'post': post, 'form': form})
+
+def category_posts(request, category_name):
+    category = get_object_or_404(Category, name=category_name)
+    posts = category.posts.all()
+    return render(request, "blog/category_posts.html", {"category": category, "posts": posts})
 
 #def blog_detail(request, pk):
 #    """Takes a primary key value, pk as an argument and retrieves the object with the given pk

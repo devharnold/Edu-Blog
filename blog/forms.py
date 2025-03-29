@@ -44,3 +44,12 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ["title", "author", "body", "categories"]
+
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ["title", "body"]
+        widgets = {
+            "title": forms.TextInput(attrs={"class": "form-control", "placeholder": "Blog Title"}),
+            "body": forms.Textarea(attrs={"class": "form-control", "rows": 5, "placeholder": "Write your blog here..."}),
+        }
