@@ -1,21 +1,46 @@
 # blog/forms.py
 
 from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from .models import Post, Comment
 
-class CommentForm(forms.Form):
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ["username", "email", "password1", "password2"]
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']  # Only the 'body' field should be included
+
+#class CommentForm(forms.ModelForm):
+#    # This is a comment form
+#    author = forms.CharField(
+#        max_length=60,
+#        widget=forms.TextInput(
+#            attrs={"class": "form-control", "placeholder": "Your Name"}
+#        ),
+#    )
+#    body = forms.CharField(
+#        widget=forms.Textarea(
+#            attrs={"class": "form-control", "placeholder": "Add a comment!"}
+#        )
+#    )
+
+class PostForm(forms.ModelForm):
     author = forms.CharField(
         max_length=60,
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Your Name"}
-        ),
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Your Name"})
     )
+    
     body = forms.CharField(
-        widget=forms.Textarea(
-            attrs={"class": "form-control", "placeholder": "Add a comment!"}
-        )
+        widget=forms.Textarea(attrs={"class": "form-control", "placeholder": "Add a text"})
     )
 
-# For both author and body, use a CharField class to control how the form element should be rendered on the page
-# The author field has the forms.
-# The TextInput widget tells django to load the field as an HTML text input element in the templates
-# The body field uses a forms.TextArea widget instead
+    class Meta:
+        model = Post
+        fields = ["title", "author", "body", "categories"]

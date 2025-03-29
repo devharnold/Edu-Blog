@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Create a New Post</h2>
+    
+    <!-- Display the form -->
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Title</label>
+            {{ form.title }}
+        </div>
+        <div class="mb-3">
+            <label for="id_body" class="form-label">Body</label>
+            {{ form.body }}
+        </div>
+        <div class="mb-3">
+            <label for="id_author" class="form-label">Author</label>
+            {{ form.author }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}
