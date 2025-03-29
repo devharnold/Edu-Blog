@@ -12,13 +12,13 @@ Since its still in testing mode, if you want to check it out then we will provid
 ---------------------------------------------------------------------------------------------------------------------
 
 ## Cloning the repository
-# via HTTPS: 
+## via HTTPS: 
 `https://github.com/devharnold/Edu-Blog.git`
 
-# via SSH: 
+## via SSH: 
 `git@github.com:devharnold/Edu-Blog.git`
 
-# via github cli: 
+## via github cli: 
 `gh repo clone devharnold/Edu-Blog`
 
 ## Downloading dependencies on your project directory
