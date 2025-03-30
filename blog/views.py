@@ -85,6 +85,21 @@ def add_post(request):
         form = PostForm()
     return render(request, "blog/add_post.html", {"form": form})
 
+def create_blog(request):
+    if request.method == 'POST':
+        form = BlogForm(request.POST)
+        if form.is_valid():
+            # Ensure the categories are valid
+            blog_post = form.save(commit=False)
+            blog_post.author = request.user
+            blog_post.save()  # Save the post to get its ID
+            form.save_m2m()  # This will save the many-to-many relationships like categories
+
+            return redirect('blog_home')  # Redirect to the home page or the detail page
+    else:
+        form = BlogForm()
+    return render(request, 'blog/create_blog.html', {'form': form})
+
 def blog_category(request, category):
     posts = Post.objects.filter(
         # This is a query set filter. Tell the backend service on what to do
@@ -102,6 +117,7 @@ def blog_category(request, category):
 @login_required
 def blog_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    comment_form = CommentForm()
     comments = post.comments.all() # This retrieves all
     
     if request.method == "POST":
@@ -121,7 +137,8 @@ def blog_detail(request, pk):
     return render(request, 'blog/blog_detail.html', {
         'post': post,
         'comments': comments,
-        'comment_form': comment_form,
+        'comment_form': locals().get("comment_form", CommentForm())
+        #'comment_form': comment_form,
     })
 
 def category_posts(request, category_name):
@@ -156,21 +173,6 @@ def delete_blog(request, pk):
         return redirect("dashboard")
 
     return render(request, "confirm_delete.html", {"post": post})
-
-def create_blog(request):
-    if request.method == 'POST':
-        form = BlogForm(request.POST)
-        if form.is_valid():
-            # Ensure the categories are valid
-            blog_post = form.save(commit=False)
-            blog_post.author = request.user
-            blog_post.save()  # Save the post to get its ID
-            form.save_m2m()  # This will save the many-to-many relationships like categories
-
-            return redirect('blog_home')  # Redirect to the home page or the detail page
-    else:
-        form = BlogForm()
-    return render(request, 'blog/create_blog.html', {'form': form})
 
 #def create_blog(request):
 #    if request.method == 'POST':

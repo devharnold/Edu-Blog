@@ -3,7 +3,7 @@ from . import views
 from .views import register, user_login, logout_view, dashboard, blog_detail, home, create_blog, category_posts
 
 urlpatterns = [
-    path("", home, name="home"),  # Home page
+    path("", home, name="blog_home"),  # Home page
     path("create/", views.create_blog, name="create_blog"),  # Add blog post
     path("post/<int:pk>/", views.blog_detail, name="blog_detail"),  # Blog detail page
     path("category/<str:category>/", views.blog_category, name="blog_category"),  # Categories
